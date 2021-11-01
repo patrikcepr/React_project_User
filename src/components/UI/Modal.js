@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import styled from 'styled-components';
 import Button from './Button';
 
@@ -55,16 +56,22 @@ const Modal = (props) => {
 
   return (
     <React.Fragment>
-      <Backdrop onClick={resetHandler} />
-      <ModalLayer>
-        <div className='header'>
-          <h2>{props.error.title}</h2>
-        </div>
-        <div className='content'>{props.error.message}</div>
-        <div className='actions'>
-          <Button onClick={resetHandler}>Back</Button>
-        </div>
-      </ModalLayer>
+      {ReactDOM.createPortal(
+        <Backdrop onClick={resetHandler} />,
+        document.getElementById('backdrop-root')
+      )}
+      {ReactDOM.createPortal(
+        <ModalLayer>
+          <div className='header'>
+            <h2>{props.error.title}</h2>
+          </div>
+          <div className='content'>{props.error.message}</div>
+          <div className='actions'>
+            <Button onClick={resetHandler}>Back</Button>
+          </div>
+        </ModalLayer>,
+        document.getElementById('overlay-root')
+      )}
     </React.Fragment>
   );
 };
