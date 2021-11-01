@@ -1,0 +1,72 @@
+import React from 'react';
+import styled from 'styled-components';
+import Button from './Button';
+
+const Backdrop = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: 10;
+  background: rgba(0, 0, 0, 0.75);
+`;
+
+const ModalLayer = styled.div`
+  position: fixed;
+  background-color: white;
+  top: 30vh;
+  left: 10%;
+  width: 80%;
+  border-radius: 10px;
+  z-index: 100;
+  overflow: hidden;
+
+  & .header {
+    background: #4f005f;
+    padding: 1rem;
+  }
+
+  & .header h2 {
+    margin: 0;
+    color: white;
+  }
+
+  & .content {
+    padding: 1rem;
+  }
+
+  & .actions {
+    padding: 1rem;
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  @media (min-width: 768px) {
+    left: calc(50% - 20rem);
+    width: 40rem;
+  }
+`;
+
+const Modal = (props) => {
+  const resetHandler = () => {
+    props.onReset(true);
+  };
+
+  return (
+    <React.Fragment>
+      <Backdrop onClick={resetHandler} />
+      <ModalLayer>
+        <div className='header'>
+          <h2>Invalid input</h2>
+        </div>
+        <div className='content'>{props.error}</div>
+        <div className='actions'>
+          <Button onClick={resetHandler}>Back</Button>
+        </div>
+      </ModalLayer>
+    </React.Fragment>
+  );
+};
+
+export default Modal;
