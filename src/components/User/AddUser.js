@@ -48,13 +48,19 @@ const AddUser = (props) => {
     ev.preventDefault();
     const userData = { name: userName, age: +userAge, id: Math.random() };
 
-    if (userName.length === 0) {
-      props.onReceiveError('Enter a valid name and age (non empty values).');
+    if (userName.trim().length === 0) {
+      props.onReceiveError({
+        title: 'Invalid input',
+        message: 'Enter a valid name and age (non empty values).',
+      });
       return;
     }
 
-    if (userName.length > 0 && +userAge <= 0) {
-      props.onReceiveError('Enter a valid age(>0).');
+    if (userName.trim().length > 0 && +userAge <= 0) {
+      props.onReceiveError({
+        title: 'Invalid age',
+        message: 'Enter a valid age(>0).',
+      });
       return;
     }
 

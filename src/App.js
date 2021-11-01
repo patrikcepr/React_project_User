@@ -5,7 +5,7 @@ import Modal from './components/UI/Modal';
 
 function App() {
   const [users, setUsers] = useState([]);
-  const [errorMessage, setErrorMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState();
 
   const insertUserHandler = (userData) => {
     setUsers((prevState) => {
@@ -14,18 +14,16 @@ function App() {
   };
 
   const receivedErrorHandler = (error) => {
-    setErrorMessage(error);
+    setErrorMessage({ title: error.title, message: error.message });
   };
 
   const resetHandler = () => {
-    setErrorMessage('');
+    setErrorMessage();
   };
 
   return (
     <React.Fragment>
-      {errorMessage.length > 0 && (
-        <Modal error={errorMessage} onReset={resetHandler} />
-      )}
+      {errorMessage && <Modal error={errorMessage} onReset={resetHandler} />}
       <AddUser
         onIncomingData={insertUserHandler}
         onReceiveError={receivedErrorHandler}

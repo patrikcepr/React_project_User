@@ -58,9 +58,9 @@ const Modal = (props) => {
       <Backdrop onClick={resetHandler} />
       <ModalLayer>
         <div className='header'>
-          <h2>Invalid input</h2>
+          <h2>{props.error.title}</h2>
         </div>
-        <div className='content'>{props.error}</div>
+        <div className='content'>{props.error.message}</div>
         <div className='actions'>
           <Button onClick={resetHandler}>Back</Button>
         </div>
